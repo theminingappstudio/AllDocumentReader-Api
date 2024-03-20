@@ -1,0 +1,51 @@
+[
+    {
+        "converterName":"Word to PDF Converter",
+        "actionUrl":"https://smallpdf.com/word-to-pdf"
+    },
+
+    {
+        "converterName":"PDF Converter",
+        "actionUrl":"https://smallpdf.com/pdf-converter"
+    },
+
+    {
+        "converterName":"Split PDF",
+        "actionUrl":"https://smallpdf.com/split-pdf"
+    },
+
+    {
+        "converterName":"PDF to WORD Converter",
+        "actionUrl":"https://www.ilovepdf.com/pdf_to_word"
+    },
+
+    {
+        "converterName":"Rotate PDF",
+        "actionUrl":"https://smallpdf.com/rotate-pdf"
+    },
+
+    {
+        "converterName":"Delete Pages From PDF",
+        "actionUrl":"https://smallpdf.com/delete-pages-from-pdf"
+    },
+
+    {
+        "converterName":"PDF Editor",
+        "actionUrl":"https://smallpdf.com/edit-pdf"
+    },
+
+    {
+        "converterName":"PDF to PPT Converter",
+        "actionUrl":"https://smallpdf.com/pdf-to-ppt"
+    },
+
+    {
+        "converterName":"Convert PDF to JPG",
+        "actionUrl":"https://smallpdf.com/pdf-to-jpg"
+    },
+
+    {
+        "converterName":"PDF to Excel Converter",
+        "actionUrl":"https://smallpdf.com/pdf-to-excel"
+    }
+]
