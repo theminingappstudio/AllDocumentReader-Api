@@ -3,7 +3,8 @@ const Utils = {
     KEY:"O+58mREbeIAqDWxtIqLqvAEUb+1ItPNxunWaVILNWH8=",
     IV:"KPt9XVOt5btFp7PS1iWk4g==",
     APP_PACKAGE_NAME: "qNqhd6dsjl1Xu3W2E0r1lPzMo83CpyrLHjfHryoBixM+QZin7lnl8D/2ZY7cqpVxIXX3GZHrVbzTT02pyI36xTaZcDBVG1NGkxvxW/R0fOU=",
-    API_COMMEN_ROUT
+    API_COMMON_ROUTE:"/app/allDocumentReader/",
+    API_SEPARATOR_ROUTE:"/",
     WELCOME_MESSAGE:"Hello from the forthFox",
 
     //error string
@@ -15,4 +16,4 @@ const Utils = {
     ERROR_GENERIC: "An error occurred. Please try again."
 };
 
-modu
+module.exports = Utils;

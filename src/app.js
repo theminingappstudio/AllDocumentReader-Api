@@ -8,9 +8,9 @@ const Utils = require('./utils/Utils');
 const app = express();
 const port = process.PORT || 3000;
 
-app.use("/app/allDocumentReader/",OnlineConverterRoutes);
+app.use(Utils.API_COMMON_ROUTE,OnlineConverterRoutes);
 
-app.get("/",async(req,res)=>{
+app.get(Utils.API_SEPARATOR_ROUTE,async(req,res)=>{
     res.send(Utils.WELCOME_MESSAGE);
 });
 
