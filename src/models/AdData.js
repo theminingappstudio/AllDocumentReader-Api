@@ -151,3 +151,5 @@ const adDataSchema = new mongoose.Schema({
         default: 2
     }
 });
+
+module.exports = mongoose.model('AdData',adDataSchema);
