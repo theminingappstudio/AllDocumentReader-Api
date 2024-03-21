@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const onlineConverter = new mongoose.Schema({
-    converterName:{
-        type:String,
-        required:true
+    converterName: {
+        type: String,
+        required: true
     },
 
-    actionUrl:{
-        type:String,
-        require:true
+    actionUrl: {
+        type: String,
+        require: true
     }
 });
 

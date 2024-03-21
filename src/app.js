@@ -3,15 +3,18 @@ const express = require("express");
 const CryptoUtils = require("../src/utils/CryptoUtils");
 const connectDB = require("../src/db/connect");
 const OnlineConverterRoutes = require("../src/routers/OnlineConverter");
+const AdServiceRouters = require("../src/routers/AdService");
 const Utils = require('./utils/Utils');
 
 const app = express();
 const port = process.PORT || 3000;
 
-app.use(Utils.API_COMMON_ROUTE,OnlineConverterRoutes);
+app.use(Utils.API_COMMON_ROUTE, OnlineConverterRoutes);
 
-app.get(Utils.API_SEPARATOR_ROUTE,async(req,res)=>{
-    res.send(Utils.WELCOME_MESSAGE);
+app.use(Utils.API_COMMON_ROUTE, AdServiceRouters)
+
+app.get(Utils.API_SEPARATOR_ROUTE, async (req, res) => {
+    res.send(CryptoUtils.encryptString(Utils.WELCOME_MESSAGE));
 });
 
 const start = async () => {
@@ -24,7 +27,7 @@ const start = async () => {
     } catch (error) {
         console.log(error);
     }
-    
+
 };
 
 start();

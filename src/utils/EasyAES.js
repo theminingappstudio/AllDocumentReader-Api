@@ -13,7 +13,7 @@ class EasyAES {
         encryptedData += cipher.final('base64');
         return encryptedData;
     };
-    
+
     decryptData(encryptedData) {
         const decipher = crypto.createDecipheriv(this.algorithm, Buffer.from(this.key, 'base64'), Buffer.from(this.iv, 'base64'));
         let decryptedData = decipher.update(encryptedData, 'base64', 'utf-8');
@@ -32,15 +32,17 @@ class EasyAES {
             return false;
         }
     }
-    
+
+    generateKeyAndIv() {
+        //  // Generate a random 32-byte key
+        //  const key = crypto.randomBytes(32).toString('base64');
+
+        //  // Generate a random 16-byte IV
+        //  const iv = crypto.randomBytes(16).toString('base64');
+        //  console.log("key:",key);
+        //  console.log("iv:",iv);
+    }
+
 }
-
-//  // Generate a random 32-byte key
-//  const key = crypto.randomBytes(32).toString('base64');
-
-//  // Generate a random 16-byte IV
-//  const iv = crypto.randomBytes(16).toString('base64');
-//  console.log("key:",key);
-//  console.log("iv:",iv);
 
 module.exports = EasyAES;

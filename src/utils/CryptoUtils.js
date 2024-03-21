@@ -1,10 +1,10 @@
 // const EasyAES = require('../src/EasyAES.js');
-const EasyAES = require('../EasyAES');
-
+const EasyAES = require('./EasyAES');
+const Utils = require('./Utils');
 
 class CryptoUtils {
-    static key = 'yourSecretKey';
-    static iv = 'yourIVString';
+    static key = Utils.KEY;
+    static iv = Utils.IV;
 
     static setKeyAndIV(key, iv) {
         CryptoUtils.key = key;
@@ -25,7 +25,7 @@ class CryptoUtils {
         return aes.decryptData(encryptedText);
     }
 
-    static isStringEncrypted(encryptedText){
+    static isStringEncrypted(encryptedText) {
         const aes = this.createAES();
         return aes.isStringEncrypted(encryptedText);
     }

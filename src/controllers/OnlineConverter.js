@@ -3,8 +3,6 @@ const OnlineConverter = require("../models/OnlineConverter");
 const CryptoUtils = require("../utils/CryptoUtils");
 const Utils = require("../utils/Utils");
 
-CryptoUtils.setKeyAndIV(Utils.KEY, Utils.IV);
-
 const getAllOnlineConverter = async (req, res) => {
     await handleData(req, res);
 };
@@ -40,12 +38,12 @@ async function handleData(req, res) {
             } else {
                 const onlineConvertersString = JSON.stringify(onlineConverters);
                 const encryptedData = CryptoUtils.encryptString(onlineConvertersString); // Encrypt the string data
-                res.send(CryptoUtils.encryptString(encryptedData));
+                res.send(encryptedData);
             }
         }
     } catch (e) {
         console.error(e);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send(Utils.INTERNAL_SERVER_ERROR);
     }
 }
 
