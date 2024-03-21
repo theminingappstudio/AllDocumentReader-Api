@@ -1,4 +1,3 @@
-const { on } = require("nodemon");
 const OnlineConverter = require("../models/OnlineConverter");
 const CryptoUtils = require("../utils/CryptoUtils");
 const Utils = require("../utils/Utils");
@@ -26,21 +25,22 @@ async function handleData(req, res) {
 
 
         // Decrypt encrypted fields
-        const decryptedDeviceId = CryptoUtils.decryptString(deviceId);
-        const decryptedV = CryptoUtils.decryptString(v);
         const decryptedPackageName = CryptoUtils.decryptString(packageName);
 
         if (decryptedPackageName == CryptoUtils.decryptString(Utils.APP_PACKAGE_NAME)) {
             const onlineConverters = await OnlineConverter.find({});
             // Check if the query parameter dec is equal to 1
-            if (req.query.dec === "1") {
+            if (req.query.dec === Utils.API_DEC_QUERY) {
                 res.send(onlineConverters);
             } else {
                 const onlineConvertersString = JSON.stringify(onlineConverters);
                 const encryptedData = CryptoUtils.encryptString(onlineConvertersString); // Encrypt the string data
                 res.send(encryptedData);
             }
+        } else {
+            res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_VAlid_DATA));
         }
+
     } catch (e) {
         console.error(e);
         res.status(500).send(Utils.INTERNAL_SERVER_ERROR);

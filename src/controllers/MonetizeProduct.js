@@ -1,12 +1,12 @@
-const AdData = require("../models/AdData");
+const MonetizeProductData = require("../models/MonetizeProductData");
 const CryptoUtils = require("../utils/CryptoUtils");
 const Utils = require("../utils/Utils");
 
-const getAllAdData = async (req, res) => {
-    await handleAdServiceRequest(req, res);
+const getAllMonetizeProduct = async (req, res) => {
+    await handleMonetizeProductRequest(req, res);
 };
 
-async function handleAdServiceRequest(req, res) {
+async function handleMonetizeProductRequest(req, res) {
     try {
         if (!req.body || Object.keys(req.body).length === 0) {
             return res.status(400).send(CryptoUtils.encryptString(Utils.REQUEST_BODY_EMPTY));
@@ -26,13 +26,13 @@ async function handleAdServiceRequest(req, res) {
         const decryptedPackageName = CryptoUtils.decryptString(packageName);
 
         if (decryptedPackageName === CryptoUtils.decryptString(Utils.APP_PACKAGE_NAME)) {
-            const AllAdData = await AdData.find({});
+            const AllMonetizeProductData = await MonetizeProductData.find({});
 
             if (req.query.dec === Utils.API_DEC_QUERY) {
-                res.send(AllAdData);
+                res.send(AllMonetizeProductData);
             } else {
-                const AllAdDataString = JSON.stringify(AllAdData);
-                const encryptData = CryptoUtils.encryptString(AllAdDataString);
+                const AllMonetizeProductDataString = JSON.stringify(AllMonetizeProductData);
+                const encryptData = CryptoUtils.encryptString(AllMonetizeProductDataString);
                 res.send(encryptData);
             }
         } else {
@@ -44,4 +44,4 @@ async function handleAdServiceRequest(req, res) {
     }
 };
 
-module.exports = getAllAdData;
+module.exports = getAllMonetizeProduct;

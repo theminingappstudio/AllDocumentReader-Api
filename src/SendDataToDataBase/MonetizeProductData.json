@@ -1,0 +1,21 @@
+[
+
+    {
+        "productId": "my_id_weekly",
+        "productName": "Weekly",
+        "productType": "subs"
+    },
+
+    {
+        "productId": "my_id_monthly",
+        "productName": "Monthly",
+        "productType": "subs"
+    },
+
+    {
+        "productId": "in_app_lifetime",
+        "productName": "Lifetime",
+        "productType": "inapp"
+    }
+    
+]

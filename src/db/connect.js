@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
+const Utils = require('../utils/Utils')
 
 const connectDB = (uri) => {
     return mongoose.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }).then(() => {
-        console.log("connection successful.");
+        console.log(Utils.CONNECTION_SUCCESSFUL);
     }).catch((error) => {
-        console.log("No connection =>", error.mssage);
+        console.log(Utils.NO_CONNECTION, error.mssage);
     });
 };
 

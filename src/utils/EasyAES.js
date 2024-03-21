@@ -34,13 +34,11 @@ class EasyAES {
     }
 
     generateKeyAndIv() {
-        //  // Generate a random 32-byte key
-        //  const key = crypto.randomBytes(32).toString('base64');
-
-        //  // Generate a random 16-byte IV
-        //  const iv = crypto.randomBytes(16).toString('base64');
-        //  console.log("key:",key);
-        //  console.log("iv:",iv);
+        // Generate a random 32-byte key
+        const key = crypto.randomBytes(32).toString('base64');
+        // Generate a random 16-byte IV
+        const iv = crypto.randomBytes(16).toString('base64');
+        return { key, iv }
     }
 
 }
