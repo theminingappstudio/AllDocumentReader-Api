@@ -31,19 +31,27 @@ async function handleData(req, res) {
             const onlineConverters = await OnlineConverter.find({});
             // Check if the query parameter dec is equal to 1
             if (req.query.dec === Utils.API_DEC_QUERY) {
-                res.send(onlineConverters);
+                res.send(getStandardResponse(true,"",onlineConverters));
             } else {
-                const onlineConvertersString = JSON.stringify(onlineConverters);
+                const onlineConvertersString = JSON.stringify(getStandardResponse(true,"",onlineConverters));
                 const encryptedData = CryptoUtils.encryptString(onlineConvertersString); // Encrypt the string data
                 res.send(encryptedData);
             }
         } else {
-            res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_VAlid_DATA));
+            res.status(400).send(CryptoUtils.encryptString(getStandardResponse(false,Utils.PLEASE_SEND_VAlid_DATA)));
         }
 
     } catch (e) {
         console.error(e);
         res.status(500).send(Utils.INTERNAL_SERVER_ERROR);
+    }
+}
+
+function getStandardResponse(status,message,data){
+    return{
+        success:status,
+        message:message,
+        data:data
     }
 }
 

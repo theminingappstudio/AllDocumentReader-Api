@@ -29,19 +29,27 @@ async function handleMonetizeProductRequest(req, res) {
             const AllMonetizeProductData = await MonetizeProductData.find({});
 
             if (req.query.dec === Utils.API_DEC_QUERY) {
-                res.send(AllMonetizeProductData);
+                res.send(getStandardResponse(true,"",AllMonetizeProductData));
             } else {
-                const AllMonetizeProductDataString = JSON.stringify(AllMonetizeProductData);
+                const AllMonetizeProductDataString = JSON.stringify(getStandardResponse(true,"",AllMonetizeProductData));
                 const encryptData = CryptoUtils.encryptString(AllMonetizeProductDataString);
                 res.send(encryptData);
             }
         } else {
-            res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_VAlid_DATA));
+            res.status(400).send(CryptoUtils.encryptString(getStandardResponse(true,Utils.PLEASE_SEND_VAlid_DATA)));
         }
 
     } catch (error) {
         res.status(500).send(CryptoUtils.encryptString(Utils.INTERNAL_SERVER_ERROR));
     }
 };
+
+function getStandardResponse(status,message,data){
+    return{
+        success:status,
+        message:message,
+        data:data
+    }
+}
 
 module.exports = getAllMonetizeProduct;
