@@ -41,7 +41,7 @@ const MonetizeProductDataSend = async () => {
     }
 };
 
-// start();
-// adDataSend();
+start();
+adDataSend();
 MonetizeProductDataSend();
 
