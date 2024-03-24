@@ -111,6 +111,11 @@ const adDataSchema = new mongoose.Schema({
         default: 40
     },
 
+    allIsFileIsNative: {
+        type: Boolean,
+        default: false
+    },
+
     allIsNative: {
         type: Boolean,
         default: true
