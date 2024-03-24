@@ -10,6 +10,11 @@ const Utils = require('../src/utils/Utils');
 const app = express();
 const port = process.PORT || 3000;
 
+app.use((req, res, next) => {
+    res.setHeader('Content-Type', 'application/json');
+    next();
+});
+
 app.use(Utils.API_COMMON_ROUTE, OnlineConverterRoutes);
 app.use(Utils.API_COMMON_ROUTE, AdServiceRouters);
 app.use(Utils.API_COMMON_ROUTE, MonetizeProductRouters);
