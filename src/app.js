@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const bodyParser = require('body-parser');
 const CryptoUtils = require("../src/utils/CryptoUtils");
 const connectDB = require("../src/db/connect");
 const OnlineConverterRoutes = require("../src/routers/OnlineConverter");
@@ -10,6 +11,8 @@ const Utils = require('../src/utils/Utils');
 const app = express();
 const port = process.PORT || 3000;
 
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(Utils.API_COMMON_ROUTE, OnlineConverterRoutes);
 app.use(Utils.API_COMMON_ROUTE, AdServiceRouters);
