@@ -7,6 +7,8 @@ const AdData = require("../models/AdData");
 const AdDataJson = require("./AdData.json");
 const MonetizeProduct = require("../models/MonetizeProductData");
 const MonetizeProductJson = require("./MonetizeProductData.json");
+const SponsoredAdService = require("../models/SponsoredAdServiceData");
+const SponsoredAdDataJson = require("./SponsoredAdData.json");
 
 const start = async () => {
     try {
@@ -41,7 +43,19 @@ const MonetizeProductDataSend = async () => {
     }
 };
 
+const SponsoredAdServiceDataSend = async () => {
+    try {
+        await connectDB(CryptoUtils.decryptString(Utils.MONGODB_URL));
+        await SponsoredAdService.deleteMany();
+        await SponsoredAdService.create(SponsoredAdDataJson);
+        console.log(Utils.SEND_DATA_INTO_DATABASE);
+    } catch (error) {
+        console.error("Error:", error.message);
+    }
+};
+
 start();
 adDataSend();
 MonetizeProductDataSend();
+SponsoredAdServiceDataSend();
 
