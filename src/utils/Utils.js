@@ -18,6 +18,7 @@ const Utils = {
     //error string
     REQUEST_BODY_EMPTY: "Request body is empty.",
     REQUIRED_FILED_MESSING: "Required fields are missing.",
+    UNEXPECTED_FIELD: "UNEXPECTED FIELD.",
     PLEASE_SEND_ENCRYPTED_Value: "Please send encrypted values of field.",
     PLEASE_SEND_VAlid_DATA: "Please send valid data.",
     INTERNAL_SERVER_ERROR: "Internal Server Error.",

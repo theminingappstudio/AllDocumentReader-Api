@@ -63,11 +63,12 @@ const uploadSponsoredData = async (req, res) => {
 
 async function handleUploadAdServiceDataRequest(req, res) {
     try {
-        if (!req.body || Object.keys(req.body).length === 0 || !req.file) {
+        if (!req.body || Object.keys(req.body).length === 0) {
             return res.status(400).send(CryptoUtils.encryptString(Utils.REQUEST_BODY_EMPTY));
         }
 
-        const { adMediaView, adCallToActionUrl } = req.body
+        const { adCallToActionUrl } = req.body
+        console.log("adCallToActionUrl =>", adCallToActionUrl)
 
         if (!adCallToActionUrl) {
             res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
@@ -88,26 +89,27 @@ async function handleUploadAdServiceDataRequest(req, res) {
 
         });
 
-        const upload = multer({ storage: storage }).single('file');
+        const upload = multer({ storage: storage }).fields('file');
 
-        upload(req, res, async function (err) {
-            if (err instanceof multer.MulterError) {
-                return res.status(400).send(CryptoUtils.encryptString(Utils.UNEXPECTED_FIELD));
-            } else if (err) {
-                return res.status(500).send(CryptoUtils.encryptString(Utils.INTERNAL_SERVER_ERROR));
-            }
+        // upload(req, res, async function (err) {
+        //     if (err instanceof multer.MulterError) {
+        //         return res.status(400).send(CryptoUtils.encryptString(Utils.UNEXPECTED_FIELD));
+        //     } else if (err) {
+        //         return res.status(500).send(CryptoUtils.encryptString(Utils.INTERNAL_SERVER_ERROR));
+        //     }
 
-            const allAdData = await SponsoredAdData.find({});
 
-            if (req.query.dec === Utils.API_DEC_QUERY) {
-                return res.json(allAdData.map(ad => getStandardResponse(true, "", ad)));
-            } else {
-                return res.json(allAdData.map(adData => {
-                    const allAdDataString = JSON.stringify(getStandardResponse(true, "", adData));
-                    return CryptoUtils.encryptString(allAdDataString);
-                }));
-            }
-        });
+        const allAdData = await SponsoredAdData.find({});
+
+        if (req.query.dec === Utils.API_DEC_QUERY) {
+            return res.json(allAdData.map(ad => getStandardResponse(true, "", ad)));
+        } else {
+            return res.json(allAdData.map(adData => {
+                const allAdDataString = JSON.stringify(getStandardResponse(true, "", adData));
+                return CryptoUtils.encryptString(allAdDataString);
+            }));
+        }
+        // });
     } catch (error) {
         res.status(500).send(CryptoUtils.encryptString(Utils.INTERNAL_SERVER_ERROR));
     }
