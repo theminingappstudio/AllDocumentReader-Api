@@ -4,7 +4,7 @@ const Utils = {
     IV: "KPt9XVOt5btFp7PS1iWk4g==",
     APP_PACKAGE_NAME: "qNqhd6dsjl1Xu3W2E0r1lPzMo83CpyrLHjfHryoBixM+QZin7lnl8D/2ZY7cqpVxIXX3GZHrVbzTT02pyI36xTaZcDBVG1NGkxvxW/R0fOU=",
     API_COMMON_ROUTE: "/app/allDocumentReader/",
-    API_IMAGE_ACCESS_BASIC_ROUTE: "http://localhost:3000/app/allDocumentReader/SponsoredAd/",
+    API_IMAGE_ACCESS_BASIC_ROUTE: "https://alldocumentreader-api-production.up.railway.app/app/allDocumentReader/SponsoredAd/",
     API_SEPARATOR_ROUTE: "/",
     API_DEC_QUERY: "1",
     // MONGODB_URL: "SVk2WW6IsJtW1nS9e4hAebCsooaqt0zVTe2KfyFVDy3XsStncoAYAnp2Exs8mnIV",
