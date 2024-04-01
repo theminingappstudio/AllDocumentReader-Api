@@ -8,7 +8,7 @@ const connectDB = (uri) => {
     }).then(() => {
         console.log(Utils.CONNECTION_SUCCESSFUL);
     }).catch((error) => {
-        console.log(Utils.NO_CONNECTION, error.mssage);
+        console.log(Utils.NO_CONNECTION, error.message);
     });
 };
 

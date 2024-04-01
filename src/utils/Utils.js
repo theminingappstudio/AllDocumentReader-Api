@@ -4,6 +4,7 @@ const Utils = {
     IV: "KPt9XVOt5btFp7PS1iWk4g==",
     APP_PACKAGE_NAME: "qNqhd6dsjl1Xu3W2E0r1lPzMo83CpyrLHjfHryoBixM+QZin7lnl8D/2ZY7cqpVxIXX3GZHrVbzTT02pyI36xTaZcDBVG1NGkxvxW/R0fOU=",
     API_COMMON_ROUTE: "/app/allDocumentReader/",
+    API_IMAGE_ACCESS_BASIC_ROUTE: "http://localhost:3000/app/allDocumentReader/SponsoredAd/",
     API_SEPARATOR_ROUTE: "/",
     API_DEC_QUERY: "1",
     // MONGODB_URL: "SVk2WW6IsJtW1nS9e4hAebCsooaqt0zVTe2KfyFVDy3XsStncoAYAnp2Exs8mnIV",
@@ -17,11 +18,13 @@ const Utils = {
 
     //error string
     REQUEST_BODY_EMPTY: "Request body is empty.",
+    REQUEST_FILE_EMPTY: "No file uploaded.",
     REQUIRED_FILED_MESSING: "Required fields are missing.",
     UNEXPECTED_FIELD: "UNEXPECTED FIELD.",
     PLEASE_SEND_ENCRYPTED_Value: "Please send encrypted values of field.",
     PLEASE_SEND_VAlid_DATA: "Please send valid data.",
     INTERNAL_SERVER_ERROR: "Internal Server Error.",
+    DATA_SAVING_ERROR: "An error occurred while saving data.",
     ERROR_NETWORK: "Network error occurred. Please check your internet connection and try again.",
     ERROR_NETWORK: "Network error occurred. Please check your internet connection and try again.",
     ERROR_SERVER: "Server error occurred. Please try again later.",
