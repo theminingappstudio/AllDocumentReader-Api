@@ -70,21 +70,21 @@ async function handleInsertData(req, res) {
         }
 
         const onlineConverterDataJson = {
-            converterName: converterName,
-            actionUrl: actionUrl
+            converterName: CryptoUtils.decryptString(converterName),
+            actionUrl: CryptoUtils.decryptString(actionUrl)
         };
 
         onlineConverterDataSend(onlineConverterDataJson).then(async savedData => {
             const onlineConverters = await OnlineConverter.find({});
             // Check if the query parameter dec is equal to 1
             if (req.query.dec === Utils.API_DEC_QUERY) {
-                res.send(getStandardResponse(true, "", onlineConverters));
+                res.status(201).send(getStandardResponse(true, "", onlineConverters));
             } else {
                 const onlineConvertersString = JSON.stringify(getStandardResponse(true, "", onlineConverters));
                 const encryptedData = CryptoUtils.encryptString(onlineConvertersString); // Encrypt the string data
-                res.send(encryptedData);
+                res.status(201).send(encryptedData);
             }
-        }) .catch(error => {
+        }).catch(error => {
             res.status(500).send(CryptoUtils.encryptString(Utils.DATA_SAVING_ERROR));
         });
 
@@ -93,7 +93,6 @@ async function handleInsertData(req, res) {
         console.error(e);
         res.status(500).send(Utils.INTERNAL_SERVER_ERROR);
     }
-
 }
 
 const onlineConverterDataSend = async (onlineConverterDataJson) => {
@@ -115,4 +114,4 @@ function getStandardResponse(status, message, data) {
     }
 }
 
-module.exports = {getAllOnlineConverter, insertOnlineConverter};
+module.exports = { getAllOnlineConverter, insertOnlineConverter };
