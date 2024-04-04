@@ -28,7 +28,7 @@ const start = async () => {
         // await connectDB(CryptoUtils.decryptString(Utils.MONGODB_URL));
         await connectDB(CryptoUtils.decryptString(Utils.MONGODB_URL));
         app.listen(port, () => {
-            console.log(Utils.CONNECTION_LIVE_PORT,port);
+            console.log(Utils.CONNECTION_LIVE_PORT, port);
         });
     } catch (error) {
         console.log(error);
