@@ -25,6 +25,7 @@ app.get(Utils.API_SEPARATOR_ROUTE, async (req, res) => {
 
 const start = async () => {
     try {
+        // await connectDB(CryptoUtils.decryptString(Utils.MONGODB_URL));
         await connectDB(CryptoUtils.decryptString(Utils.MONGODB_URL));
         app.listen(port, () => {
             console.log(Utils.CONNECTION_LIVE_PORT,port);

@@ -21,7 +21,7 @@ const uploadFile = multer({ storage: storage });
 
 
 router.route("/SponsoredAdService").post(upload.none(), getSponsoredAdService);
-router.route("/SponsoredAdService/Upload").post(uploadFile.single('adMediaView'), uploadSponsoredData);
+router.route("/upload/SponsoredAdService").post(uploadFile.single('adMediaView'), uploadSponsoredData);
 router.use("/SponsoredAd",express.static('uploads/SponsoredAd'));
 
 module.exports = router;

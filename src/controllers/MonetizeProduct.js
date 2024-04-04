@@ -29,14 +29,14 @@ async function handleMonetizeProductRequest(req, res) {
             const AllMonetizeProductData = await MonetizeProductData.find({});
 
             if (req.query.dec === Utils.API_DEC_QUERY) {
-                res.send(getStandardResponse(true,"",AllMonetizeProductData));
+                res.send(getStandardResponse(true, "", AllMonetizeProductData));
             } else {
-                const AllMonetizeProductDataString = JSON.stringify(getStandardResponse(true,"",AllMonetizeProductData));
+                const AllMonetizeProductDataString = JSON.stringify(getStandardResponse(true, "", AllMonetizeProductData));
                 const encryptData = CryptoUtils.encryptString(AllMonetizeProductDataString);
                 res.send(encryptData);
             }
         } else {
-            res.status(400).send(CryptoUtils.encryptString(getStandardResponse(true,Utils.PLEASE_SEND_VAlid_DATA)));
+            res.status(400).send(CryptoUtils.encryptString(getStandardResponse(true, Utils.PLEASE_SEND_VAlid_DATA)));
         }
 
     } catch (error) {
@@ -44,12 +44,71 @@ async function handleMonetizeProductRequest(req, res) {
     }
 };
 
-function getStandardResponse(status,message,data){
-    return{
-        success:status,
-        message:message,
-        data:data
+const insertMonetizeProduct = async (req, res) => {
+    await handleInsertData(req, res);
+};
+
+
+async function handleInsertData(req, res) {
+    try {
+        if (!req.body || Object.keys(req.body).length === 0) {
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUEST_BODY_EMPTY));
+        }
+
+        const { converterName, actionUrl } = req.body;
+
+        if (!converterName || !actionUrl) {
+            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+        }
+
+        // Check if fields are encrypted
+        if (!CryptoUtils.isStringEncrypted(converterName) || !CryptoUtils.isStringEncrypted(actionUrl)) {
+            return res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
+        }
+
+        const monetizeProductDataJson = {
+            converterName: CryptoUtils.decryptString(converterName),
+            actionUrl: CryptoUtils.decryptString(actionUrl)
+        };
+
+        monetizeProductDataSend(monetizeProductDataJson).then(async savedData => {
+            const AllMonetizeProductData = await MonetizeProductData.find({});
+            // Check if the query parameter dec is equal to 1
+            if (req.query.dec === Utils.API_DEC_QUERY) {
+                res.status(201).send(getStandardResponse(true, "", AllMonetizeProductData));
+            } else {
+                const AllMonetizeProductDataString = JSON.stringify(getStandardResponse(true, "", AllMonetizeProductData));
+                const encryptedData = CryptoUtils.encryptString(AllMonetizeProductDataString); // Encrypt the string data
+                res.status(201).send(encryptedData);
+            }
+        }).catch(error => {
+            res.status(500).send(CryptoUtils.encryptString(Utils.DATA_SAVING_ERROR));
+        });
+
+
+    } catch (e) {
+        console.error(e);
+        res.status(500).send(Utils.INTERNAL_SERVER_ERROR);
     }
 }
 
-module.exports = getAllMonetizeProduct;
+const monetizeProductDataSend = async (monetizeProductDataJson) => {
+    try {
+        const savedData = await MonetizeProductData.create(monetizeProductDataJson);
+        return savedData;
+    } catch (error) {
+        console.error("Error:", error.message);
+        return Promise.reject(error.message);
+    }
+};
+
+
+function getStandardResponse(status, message, data) {
+    return {
+        success: status,
+        message: message,
+        data: data
+    }
+}
+
+module.exports = { getAllMonetizeProduct, insertMonetizeProduct };

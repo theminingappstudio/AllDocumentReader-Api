@@ -25,6 +25,8 @@ const Utils = {
     PLEASE_SEND_VAlid_DATA: "Please send valid data.",
     INTERNAL_SERVER_ERROR: "Internal Server Error.",
     DATA_SAVING_ERROR: "An error occurred while saving data.",
+    DATA_MODIFIED_ERROR: "An error occurred while modified data.",
+    DATA_REMOVE_ERROR: "An error occurred while remove data.",
     ERROR_NETWORK: "Network error occurred. Please check your internet connection and try again.",
     ERROR_NETWORK: "Network error occurred. Please check your internet connection and try again.",
     ERROR_SERVER: "Server error occurred. Please try again later.",
