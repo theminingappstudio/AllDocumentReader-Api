@@ -15,7 +15,7 @@ async function handleData(req, res) {
         const { deviceId, v, packageName } = req.body;
 
         if (!deviceId || !v || !packageName) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
         // Check if fields are encrypted
@@ -61,7 +61,7 @@ async function handleInsertData(req, res) {
         const { converterName, actionUrl } = req.body;
 
         if (!converterName || !actionUrl) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
         // Check if fields are encrypted
@@ -119,7 +119,7 @@ async function handleRemoveOneData(req, res) {
         const { converterId } = req.body;
 
         if (!converterId) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
         // Check if fields are encrypted

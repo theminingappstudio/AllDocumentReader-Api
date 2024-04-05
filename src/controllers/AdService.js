@@ -15,11 +15,11 @@ async function handleAdServiceRequest(req, res) {
         const { deviceId, v, packageName } = req.body
 
         if (!deviceId || !v || !packageName) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
         if (!CryptoUtils.isStringEncrypted(deviceId) || !CryptoUtils.encryptString(v) || !CryptoUtils.encryptString(packageName)) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
         }
 
         // Decrypt encrypted fields
@@ -58,8 +58,17 @@ async function handleUpdateDataRequest(req, res) {
     }
 
     const { adServiceId } = req.body
+    const requestBody = req.body
 
-    adServiceUpdateOneData(CryptoUtils.decryptString(adServiceId), req.body).then(async adData => {
+    const decryptedRequestBody = {};
+    for (const key in requestBody) {
+        if (!CryptoUtils.isStringEncrypted(requestBody[key])) {
+            return res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
+        }
+        decryptedRequestBody[key] = CryptoUtils.decryptString(requestBody[key]);
+    }
+
+    adServiceUpdateOneData(CryptoUtils.decryptString(adServiceId), decryptedRequestBody).then(async adData => {
         const AllAdData = await AdData.find({});
 
         if (req.query.dec === Utils.API_DEC_QUERY) {
@@ -78,13 +87,9 @@ async function handleUpdateDataRequest(req, res) {
     });
 };
 
-const adServiceUpdateOneData = async (adServiceId, requestBody) => {
+const adServiceUpdateOneData = async (adServiceId, decryptedRequestBody) => {
     try {
         const _id = adServiceId;
-        const decryptedRequestBody = {};
-        for (const key in requestBody) {
-            decryptedRequestBody[key] = CryptoUtils.decryptString(requestBody[key]);
-        }
         const adData = await AdData.findByIdAndUpdate(_id, decryptedRequestBody);
         return adData;
     } catch (error) {

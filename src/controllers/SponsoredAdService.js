@@ -16,11 +16,11 @@ async function handleAdServiceRequest(req, res) {
         const { deviceId, v, packageName } = req.body
 
         if (!deviceId || !v || !packageName) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
         if (!CryptoUtils.isStringEncrypted(deviceId) || !CryptoUtils.encryptString(v) || !CryptoUtils.encryptString(packageName)) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
         }
 
         // Decrypt encrypted fields
@@ -76,11 +76,11 @@ async function handleUploadAdServiceDataRequest(req, res) {
         const adMediaView = req.file.filename
 
         if (!adCallToActionUrl) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
         if (!CryptoUtils.isStringEncrypted(adCallToActionUrl)) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
         }
 
         const requestDataJson = requestStanderResponse(`${Utils.API_IMAGE_ACCESS_BASIC_ROUTE}${adMediaView}`, CryptoUtils.decryptString(adCallToActionUrl));

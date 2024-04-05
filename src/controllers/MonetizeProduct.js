@@ -15,11 +15,11 @@ async function handleMonetizeProductRequest(req, res) {
         const { deviceId, v, packageName } = req.body
 
         if (!deviceId || !v || !packageName) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
         if (!CryptoUtils.isStringEncrypted(deviceId) || !CryptoUtils.encryptString(v) || !CryptoUtils.encryptString(packageName)) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
         }
 
         // Decrypt encrypted fields
@@ -58,7 +58,7 @@ async function handleInsertData(req, res) {
         const { productId, productName, productType } = req.body;
 
         if (!productId || !productName || !productType) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
         // Check if fields are encrypted
@@ -116,7 +116,7 @@ async function handleRemoveOneData(req, res) {
         const { productId } = req.body;
 
         if (!productId) {
-            res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
+            return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
         // Check if fields are encrypted
