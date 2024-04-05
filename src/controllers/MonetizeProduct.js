@@ -200,7 +200,7 @@ async function handleUpdateOneData(req, res) {
 
 const monetizeProductUpdateOneData = async (productDetailsId, productId, productName, productType) => {
     try {
-        const _id = productDetailsId
+        const _id = productDetailsId;
         const updateData = { productId, productName, productType };
         const monetizeProductData = await MonetizeProductData.findByIdAndUpdate(_id, updateData);
         return monetizeProductData;

@@ -30,17 +30,17 @@ async function handleAdServiceRequest(req, res) {
 
             if (req.query.dec === Utils.API_DEC_QUERY) {
                 AllAdData.forEach(ad => {
-                    res.json(getStandardResponse(true,"",ad));
+                    res.json(getStandardResponse(true, "", ad));
                 });
             } else {
-                AllAdData.forEach(AdData =>{
-                    const AllAdDataString = JSON.stringify(getStandardResponse(true,"",AdData));
+                AllAdData.forEach(AdData => {
+                    const AllAdDataString = JSON.stringify(getStandardResponse(true, "", AdData));
                     const encryptData = CryptoUtils.encryptString(AllAdDataString);
                     res.send(encryptData);
                 });
             }
         } else {
-            res.status(400).send(getStandardResponse(false,CryptoUtils.encryptString(Utils.PLEASE_SEND_VAlid_DATA)));
+            res.status(400).send(getStandardResponse(false, CryptoUtils.encryptString(Utils.PLEASE_SEND_VAlid_DATA)));
         }
 
     } catch (error) {
@@ -48,12 +48,61 @@ async function handleAdServiceRequest(req, res) {
     }
 };
 
-function getStandardResponse(status,message,data){
+const updateAdServiceData = async (req, res) => {
+    await handleUpdateDataRequest(req, res);
+};
+
+async function handleUpdateDataRequest(req, res) {
+    if (!req.body || !Object.keys(req.body).length === 0) {
+        return res.status(400).send(CryptoUtils.encryptString(Utils.REQUEST_BODY_EMPTY));
+    }
+
+    console.log("responseBody => ", req.body);
+    const { adServiceId } = req.body
+
+    adServiceUpdateOneData(CryptoUtils.decryptString(adServiceId), req.body).then(async adData => {
+        const AllAdData = await AdData.find({});
+
+        if (req.query.dec === Utils.API_DEC_QUERY) {
+            AllAdData.forEach(ad => {
+                res.json(getStandardResponse(true, "", ad));
+            });
+        } else {
+            AllAdData.forEach(AdData => {
+                const AllAdDataString = JSON.stringify(getStandardResponse(true, "", AdData));
+                const encryptData = CryptoUtils.encryptString(AllAdDataString);
+                res.send(encryptData);
+            });
+        }
+    }).catch(error => {
+        res.status(500).send(CryptoUtils.encryptString(Utils.DATA_MODIFIED_ERROR));
+    });
+};
+
+const adServiceUpdateOneData = async (adServiceId, requestBody) => {
+    try {
+        const _id = adServiceId;
+        const decryptedRequestBody = {};
+        for (const key in requestBody) {
+            // if (requestBody.hasOwnProperty(key)) {
+                decryptedRequestBody[key] = CryptoUtils.decryptString(requestBody[key]);
+            // }
+        }
+        console.log("decryptedRequestBody =>",decryptedRequestBody);
+        const adData = await AdData.findByIdAndUpdate(_id, decryptedRequestBody);
+        return adData;
+    } catch (error) {
+        console.error("Error:", error.message);
+        return Promise.reject(error.message);
+    }
+};
+
+function getStandardResponse(status, message, data) {
     return {
         success: status,
-        message : message,
-        data : data
-     }
+        message: message,
+        data: data
+    }
 }
 
-module.exports = getAllAdData;
+module.exports = { getAllAdData, updateAdServiceData };

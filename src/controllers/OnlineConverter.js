@@ -204,7 +204,7 @@ async function handleUpdateOneData(req, res) {
 
 const onlineConverterUpdateOneData = async (converterId, converterName, actionUrl) => {
     try {
-        const _id = converterId
+        const _id = converterId;
         const updateData = { converterName, actionUrl };
         const onlineConverterData = await OnlineConverter.findByIdAndUpdate(_id, updateData);
         return onlineConverterData;
