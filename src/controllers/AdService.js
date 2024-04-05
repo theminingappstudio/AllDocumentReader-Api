@@ -86,7 +86,6 @@ const adServiceUpdateOneData = async (adServiceId, requestBody) => {
         for (const key in requestBody) {
             decryptedRequestBody[key] = CryptoUtils.decryptString(requestBody[key]);
         }
-        console.log("decryptedRequestBody =>", decryptedRequestBody);
         const adData = await AdData.findByIdAndUpdate(_id, decryptedRequestBody);
         return adData;
     } catch (error) {
