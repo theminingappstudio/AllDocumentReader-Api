@@ -57,7 +57,6 @@ async function handleUpdateDataRequest(req, res) {
         return res.status(400).send(CryptoUtils.encryptString(Utils.REQUEST_BODY_EMPTY));
     }
 
-    console.log("responseBody => ", req.body);
     const { adServiceId } = req.body
 
     adServiceUpdateOneData(CryptoUtils.decryptString(adServiceId), req.body).then(async adData => {

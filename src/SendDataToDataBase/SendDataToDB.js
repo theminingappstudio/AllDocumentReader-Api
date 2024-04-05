@@ -54,7 +54,7 @@ const SponsoredAdServiceDataSend = async () => {
     }
 };
 
-start();
+// start();
 // adDataSend();
 // MonetizeProductDataSend();
 // SponsoredAdServiceDataSend();
