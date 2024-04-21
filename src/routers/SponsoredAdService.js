@@ -18,8 +18,11 @@ const storage = multer.diskStorage({
                 return cb(err);
             }
 
+            // Filter files to delete based on the filename pattern
+            const filesToDelete = files.filter(filename => filename.startsWith('SponsoredAdMedia') && filename.endsWith('.png'));
+
             // Delete each file in the directory
-            for (const file of files) {
+            for (const file of filesToDelete) {
                 fs.unlink(path.join(uploadDir, file), err => {
                     if (err) {
                         console.error("Error deleting file:", err);
