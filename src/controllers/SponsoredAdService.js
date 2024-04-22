@@ -74,6 +74,7 @@ async function handleUploadAdServiceDataRequest(req, res) {
 
         const { adCallToActionUrl } = req.body
         const adMediaView = req.file.filename
+        console.log("adMediaView =>",adMediaView);
 
         if (!adCallToActionUrl) {
             return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
