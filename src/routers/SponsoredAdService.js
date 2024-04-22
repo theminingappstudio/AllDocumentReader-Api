@@ -27,6 +27,8 @@ const storage = multer.diskStorage({
                 fs.unlink(path.join(uploadDir, file), err => {
                     if (err) {
                         console.error("Error deleting file:", err);
+                    } else {
+                        console.log("Successfully deleted file:", file);
                     }
                 });
             }
@@ -38,12 +40,34 @@ const storage = multer.diskStorage({
     },
 
     filename: function (req, file, cb) {
-        return cb(null, `SponsoredAdMedia${path.extname(file.originalname)}`);
+        const currentDate = new Date().toISOString().slice(0, 10);
+        const date = new Date();
+        // Get the time in milliseconds since the Unix epoch
+        const currentTimeInMillis = date.getTime();
+        console.log("currentTimeInMillis =>",currentTimeInMillis);
+        const uniqueFilename = `SponsoredAdMedia_${currentDate}_${currentTimeInMillis}${path.extname(file.originalname)}`
+        return cb(null, uniqueFilename);
     },
 
 });
 
 const uploadFile = multer({ storage: storage });
+
+function getCurrentTime() {
+    // Get the current date and time
+    const currentDate = new Date();
+
+    // Extract individual components of the current time
+    const hours = String(currentDate.getHours()).padStart(2, '0'); // Get hours (with leading zero if necessary)
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0'); // Get minutes (with leading zero if necessary)
+    const seconds = String(currentDate.getSeconds()).padStart(2, '0'); // Get seconds (with leading zero if necessary)
+
+    // Construct the time string in the desired format (e.g., HH:MM:SS)
+    const currentTime = `${hours}:${minutes}:${seconds}`;
+
+    // Return the formatted current time
+    return currentTime;
+}
 
 
 router.route("/SponsoredAdService").post(upload.none(), getSponsoredAdService);
