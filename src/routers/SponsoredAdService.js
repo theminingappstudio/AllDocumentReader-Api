@@ -44,7 +44,6 @@ const storage = multer.diskStorage({
         const date = new Date();
         // Get the time in milliseconds since the Unix epoch
         const currentTimeInMillis = date.getTime();
-        console.log("currentTimeInMillis =>",currentTimeInMillis);
         const uniqueFilename = `SponsoredAdMedia_${currentDate}_${currentTimeInMillis}${path.extname(file.originalname)}`
         return cb(null, uniqueFilename);
     },
