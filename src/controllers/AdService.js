@@ -18,7 +18,7 @@ async function handleAdServiceRequest(req, res) {
             return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
-        if (!CryptoUtils.isStringEncrypted(deviceId) || !CryptoUtils.encryptString(v) || !CryptoUtils.encryptString(packageName)) {
+        if (!CryptoUtils.isStringEncrypted(deviceId) || !CryptoUtils.isStringEncrypted(v) || !CryptoUtils.isStringEncrypted(packageName)) {
             return res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
         }
 

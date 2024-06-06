@@ -4,7 +4,7 @@ const Utils = require("../utils/Utils");
 
 const getAllMonetizeProduct = async (req, res) => {
     await handleMonetizeProductRequest(req, res);
-};
+}; 
 
 async function handleMonetizeProductRequest(req, res) {
     try {
@@ -18,7 +18,7 @@ async function handleMonetizeProductRequest(req, res) {
             return res.status(400).send(CryptoUtils.encryptString(Utils.REQUIRED_FILED_MESSING));
         }
 
-        if (!CryptoUtils.isStringEncrypted(deviceId) || !CryptoUtils.encryptString(v) || !CryptoUtils.encryptString(packageName)) {
+        if (!CryptoUtils.isStringEncrypted(deviceId) || !CryptoUtils.isStringEncrypted(v) || !CryptoUtils.isStringEncrypted(packageName)) {
             return res.status(400).send(CryptoUtils.encryptString(Utils.PLEASE_SEND_ENCRYPTED_Value));
         }
 
@@ -35,6 +35,7 @@ async function handleMonetizeProductRequest(req, res) {
                 const encryptData = CryptoUtils.encryptString(AllMonetizeProductDataString);
                 res.send(encryptData);
             }
+        
         } else {
             res.status(400).send(CryptoUtils.encryptString(getStandardResponse(true, Utils.PLEASE_SEND_VAlid_DATA)));
         }
